@@ -1,0 +1,18 @@
+This python app is based on Wordle with the main differences being
+	1) the ability to set up different word sizes 
+	2) no limits on how many games per day as it is a random word and not based on date as index.
+
+>Play
+
+Start bash or powershell for a running locally
+```bash
+python readword.py
+```
+
+>Options
+   s) Show
+   n) Set word size
+   p) Play
+   q) Quit
+
+The code can be easily updated to read from a different word list.
