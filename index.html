@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Conundrum</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        function getConundrum(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    json = JSON.parse(this.responseText);
+                    document.getElementById("conundrum").innerHTML = json.conundrum.toUpperCase();
+                    document.getElementById("answer").style.display = "none"
+                    document.getElementById("answer").innerHTML = json.answer.toUpperCase();
+                    document.getElementById("startingWith").style.display = "none"
+                    document.getElementById("startingWith").innerHTML = json.answer.substring(0,1).toUpperCase();
+                }
+            };
+            xhttp.open("GET", "/conundrum", true);
+            xhttp.send();
+        }
+
+        function showAnswer(){
+            document.getElementById("answer").style.display = "block";
+        }
+
+        function showStartingWith(){
+            document.getElementById("startingWith").style.display = "block";
+        }
+    </script>
+</head>
+
+<body onload="getConundrum()" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Conundrum</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <div class="conundrum" id="conundrum"></div>
+                </p>
+                <input type="button" class="btn btn-primary" value="Show Starts With" onclick="showStartingWith()">
+                <input type="button" class="btn btn-primary" value="Show Answer" onclick="showAnswer()">
+                <input type="button" class="btn btn-primary" value="Get another conundrum" onclick="getConundrum()">
+                <p>
+                    <div class="startingWith" id="startingWith"></div>
+                    <div class="answer" id="answer"></div>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

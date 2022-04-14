@@ -16,3 +16,10 @@ python readword.py
    q) Quit
 
 The code can be easily updated to read from a different word list.
+
+Conundrum for 9 letter words
+```bash
+python conundrum_srv.py
+```
+
+go to localhost:4000
