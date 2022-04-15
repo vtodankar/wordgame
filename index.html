@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <script>
+        letterPosition = 1;
         function getConundrum(){
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -19,7 +20,7 @@
                     document.getElementById("answer").style.display = "none"
                     document.getElementById("answer").innerHTML = json.answer.toUpperCase();
                     document.getElementById("startingWith").style.display = "none"
-                    document.getElementById("startingWith").innerHTML = json.answer.substring(0,1).toUpperCase();
+                    letterPosition = 1;
                 }
             };
             xhttp.open("GET", "/conundrum", true);
@@ -32,6 +33,20 @@
 
         function showStartingWith(){
             document.getElementById("startingWith").style.display = "block";
+            document.getElementById("startingWith").innerHTML = json.answer.substring(0,1).toUpperCase();
+            letterPosition = 2;
+        }
+
+        function clearAnswer(){
+            document.getElementById("answer").style.display = "none";
+            document.getElementById("startingWith").style.display = "none";
+            letterPosition = 1;
+        }
+
+        function showNextLetter(){
+            document.getElementById("startingWith").style.display = "block";
+            document.getElementById("startingWith").innerHTML = document.getElementById("answer").innerHTML.substring(0,letterPosition).toUpperCase();
+            letterPosition++;
         }
     </script>
 </head>
@@ -41,16 +56,24 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>Conundrum</h1>
+                <hr>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    <div class="conundrum" id="conundrum"></div>
+                    <h1><div class="conundrum" id="conundrum"></div></h1>
                 </p>
-                <input type="button" class="btn btn-primary" value="Show Starts With" onclick="showStartingWith()">
-                <input type="button" class="btn btn-primary" value="Show Answer" onclick="showAnswer()">
-                <input type="button" class="btn btn-primary" value="Get another conundrum" onclick="getConundrum()">
+                <div>
+                    <input type="button" class="btn btn-primary" value="Show Starts With" onclick="showStartingWith()">
+                    <input type="button" class="btn btn-primary" value="Show Next Letter" onclick="showNextLetter()">
+                    <input type="button" class="btn btn-primary" value="Show Answer" onclick="showAnswer()">
+                    <input type="button" class="btn btn-primary" value="Clear" onclick="clearAnswer()">
+                </div>
+                <hr>
+                <p>    
+                    <input type="button" class="btn btn-primary" value="Get another conundrum" onclick="getConundrum()">
+                </p>
                 <p>
                     <div class="startingWith" id="startingWith"></div>
                     <div class="answer" id="answer"></div>
